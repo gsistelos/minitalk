@@ -5,8 +5,7 @@
   "customizations": {
     "vscode": {
       "extensions": [
-        "ms-vscode.cpptools",
-        "ms-vscode.cpptools-extension-pack"
+        "ms-vscode.cpptools-extension-pack" // VSCode sucks so this doesn't work, install the extension manually
       ],
       "settings": {
         "editor.formatOnSave": true,
