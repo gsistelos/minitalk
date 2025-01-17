@@ -1,16 +1,8 @@
 {
   "name": "minitalk",
-  "image": "mcr.microsoft.com/vscode/devcontainers/cpp",
+  
+  "context": "..",
+  "dockerFile": "Dockerfile",
 
-  "customizations": {
-    "vscode": {
-      "extensions": [
-        "ms-vscode.cpptools-extension-pack" // VSCode sucks so this doesn't work, install the extension manually
-      ],
-      "settings": {
-        "editor.formatOnSave": true,
-        "editor.defaultFormatter": "ms-vscode.cpptools"
-      }
-    }
-  }
+  "postAttachCommand": "pipx install norminette"
 }
