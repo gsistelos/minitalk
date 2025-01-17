@@ -1,23 +1,44 @@
-#include <signal.h>
-#include <stdio.h>
-#include <unistd.h>
+#include "minitalk.h"
 
-void print_pid(void)
+static void handle_byte(char byte)
 {
-	printf("PID: %d\n", getpid());
+	static size_t i;
+	static char buffer[BUFFER_SIZE];
+
+	if (byte == '\0')
+	{
+		buffer[i] = '\n';
+		write(STDOUT_FILENO, buffer, i + 1);
+		i = 0;
+		return ;
+	}
+	buffer[i] = byte;
+	i++;
+	if (i == BUFFER_SIZE)
+	{
+		write(STDOUT_FILENO, buffer, i);
+		i = 0;
+	}
 }
 
-void signal_handler(int signum)
+static void signal_handler(int signum)
 {
+	static char bit;
+	static char byte;
+
 	if (signum == SIGUSR1)
-		printf("Received SIGUSR1\n");
+		byte |= (1 << bit);
 	else if (signum == SIGUSR2)
-		printf("Received SIGUSR2\n");
-	else
-		printf("Received signal %d\n", signum);
+		byte &= ~(1 << bit);
+	bit++;
+	if (bit == 8)
+	{
+		handle_byte(byte);
+		bit = 0;
+	}
 }
 
-void setup_signals(void)
+static void setup_signals(void)
 {
 	struct sigaction sa;
 
@@ -30,9 +51,9 @@ void setup_signals(void)
 
 int main(void)
 {
-	print_pid();
+	printf("PID: %d\n", getpid());
 	setup_signals();
 	while (1)
-		pause();
+		;
 	return 0;
 }
