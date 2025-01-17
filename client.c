@@ -1,8 +1,8 @@
 #include "minitalk.h"
 
-static void send_byte(int pid, char byte)
+static void	send_byte(int pid, char byte)
 {
-	size_t bit;
+	size_t	bit;
 
 	bit = 0;
 	while (bit < 8)
@@ -16,7 +16,7 @@ static void send_byte(int pid, char byte)
 	}
 }
 
-static void send_message(int pid, char *str)
+static void	send_message(int pid, char *str)
 {
 	while (*str)
 	{
@@ -26,13 +26,13 @@ static void send_message(int pid, char *str)
 	send_byte(pid, '\0');
 }
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
-	int pid;
+	int	pid;
 
 	if (validate_args(argc, argv))
-		return 1;
+		return (1);
 	pid = atoi(argv[1]);
 	send_message(pid, argv[2]);
-	return 0;
+	return (0);
 }

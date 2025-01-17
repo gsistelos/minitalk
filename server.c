@@ -1,9 +1,9 @@
 #include "minitalk.h"
 
-static void handle_byte(char byte)
+static void	handle_byte(char byte)
 {
-	static size_t i;
-	static char buffer[BUFFER_SIZE];
+	static size_t	i;
+	static char		buffer[BUFFER_SIZE];
 
 	if (byte == '\0')
 	{
@@ -21,10 +21,10 @@ static void handle_byte(char byte)
 	}
 }
 
-static void signal_handler(int signum)
+static void	signal_handler(int signum)
 {
-	static char bit;
-	static char byte;
+	static char	bit;
+	static char	byte;
 
 	if (signum == SIGUSR1)
 		byte |= (1 << bit);
@@ -38,9 +38,9 @@ static void signal_handler(int signum)
 	}
 }
 
-static void setup_signals(void)
+static void	setup_signals(void)
 {
-	struct sigaction sa;
+	struct sigaction	sa;
 
 	sa.sa_handler = signal_handler;
 	sigemptyset(&sa.sa_mask);
@@ -49,11 +49,11 @@ static void setup_signals(void)
 	sigaction(SIGUSR2, &sa, NULL);
 }
 
-int main(void)
+int	main(void)
 {
 	printf("PID: %d\n", getpid());
 	setup_signals();
 	while (1)
 		;
-	return 0;
+	return (0);
 }
