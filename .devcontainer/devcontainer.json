@@ -1,8 +1,7 @@
 {
   "name": "minitalk",
-  
-  "context": "..",
-  "dockerFile": "Dockerfile",
-
-  "postAttachCommand": "pipx install norminette"
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": ".."
+  }
 }
